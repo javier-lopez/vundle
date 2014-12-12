@@ -4,7 +4,9 @@
 
 This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) & [Plug](https://github.com/junegunn/vim-plug).
 
-![Vundle-installer](https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif)
+<p align="center">
+<img src="https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif" alt="vundle-installer"/>
+</p>
 
 ## Quick start
 
