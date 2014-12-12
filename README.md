@@ -1,20 +1,18 @@
 ## About
 
-[Vundle] is short for _Vim bundle_ and is a [Vim] plugin manager.
+[Vundle](https://github.com/chilicuil/vundle) is short for _Vim bundle_ and is a [Vim](http://vim.org) plugin manager. This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) & [Plug](https://github.com/junegunn/vim-plug).
 
 ![Vundle-installer](https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif)
 
-This is a custom version, merging Vundle & Plug
-
 ## Quick start
 
-1. Setup [Vundle]:
+1. Setup:
 
      ```
      $ git clone https://github.com/chilicuil/vundle.git ~/.vim/bundle/vundle
      ```
 
-2. Configure bundles:
+2. Configuration:
 
      Sample `.vimrc`:
 
@@ -26,7 +24,7 @@ This is a custom version, merging Vundle & Plug
      call vundle#rc()
 
      " let Vundle manage Vundle
-     " required! 
+     " required!
      Bundle 'chilicuil/vundle'
 
      " My Bundles here:
@@ -53,31 +51,25 @@ This is a custom version, merging Vundle & Plug
      " :BundleSearch(!) foo - search(or refresh cache first) for foo
      " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
      "
-     " see :h vundle for more details or wiki for FAQ
+     " see :h vundle for more details
      " NOTE: comments after Bundle command are not allowed..
+     s``
 
-     ```
+3. Deploy:
 
-3. Install configured bundles:
-
-     Launch `vim`, run `:BundleInstall` 
+     Launch `vim`, run `:BundleInstall`
      (or `vim +BundleInstall +qall` for CLI lovers)
 
-     *Windows users* see [Vundle for Windows](https://github.com/chilicuil/vundle/wiki/Vundle-for-Windows)
-
-     Installing requires [Git] and triggers [Git clone](http://gitref.org/creating/#clone) for each configured repo to `~/.vim/bundle/`.
+     Installing requires Git and triggers [Git clone](http://gitref.org/creating/#clone) for each configured repo to `~/.vim/bundle/`.
 
 ## Why Vundle
 
-[Vundle] allows to:
+Vundle allows to:
 
 - keep track and configure your scripts right in `.vimrc`
-- [install] configured scripts (aka bundle) 
-- [update] configured scripts
-- [clean] unused scripts up
-
-Also [Vundle]:
-
+- install configured scripts (aka bundle)
+- update configured scripts
+- clean unused scripts up
 - regenerates helptag automatically
 
 ## Docs
@@ -86,6 +78,6 @@ see [`:h vundle`](vundle/blob/master/doc/vundle.txt#L1) vimdoc for more details.
 
 ## Inspiration and ideas from
 
-* [pathogen]
-* [bundler]
+* [pathogen](https://github.com/tpope/vim-pathogen)
+* [bundler](http://bundler.io/)
 * [Scott Bronson](http://github.com/bronson)
