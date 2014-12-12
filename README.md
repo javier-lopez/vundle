@@ -1,6 +1,8 @@
 ## About
 
-[Vundle](https://github.com/chilicuil/vundle) is short for _Vim bundle_ and is a [Vim](http://vim.org) plugin manager. This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) & [Plug](https://github.com/junegunn/vim-plug).
+[Vundle](https://github.com/chilicuil/vundle) is short for _Vim bundle_ and is a [Vim](http://vim.org) plugin manager.
+
+This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) & [Plug](https://github.com/junegunn/vim-plug).
 
 ![Vundle-installer](https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif)
 
@@ -53,7 +55,8 @@
      "
      " see :h vundle for more details
      " NOTE: comments after Bundle command are not allowed..
-     s``
+
+     ```
 
 3. Deploy:
 
