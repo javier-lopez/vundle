@@ -4,6 +4,25 @@
 " HomePage: http://github.com/chilicuil/vundle
 " Readme:   http://github.com/chilicuil/vundle/blob/master/README.md
 
+"TODO 12-12-2014 18:09 >> remove #end function, load everything on #rc
+
+"TODO 12-12-2014 17:33 >> add option for loading on mapping
+" % or Plug matchit => vim-matchit
+" <leader>c<space> or Plug nerdcommander => nerdcommander
+" <f11> or Plug nextCS => nextCS
+" <ctrl_map> => ctrlp
+" <ctrl_map> => vim-sprunge
+" <ctrl_map> => x-modes
+" <ctrl_map> => quickbuf
+
+"TODO 12-12-2014 18:10 >> fix
+"gpg, cutils (autocreation of files)
+
+"TODO 12-12-2014 17:33 >> add option for loading on insert
+"   snipmate, neocomplcache, surround
+
+"TODO 12-12-2014 19:42 >> add python multithread version
+
 if exists('g:loaded_vundle')
   finish
 endif
