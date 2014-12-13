@@ -77,7 +77,6 @@ function! s:define_commands()
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleInstall call s:install('<bang>' == '!', [<f-args>])
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleUpdate  call s:update('<bang>' == '!', [<f-args>])
   command! -nargs=0 -bar -bang BundleClean call s:clean('<bang>' == '!')
-  command! -nargs=0 -bar BundleUpgrade if s:upgrade() | execute 'source' s:me | endif
   command! -nargs=0 -bar BundleStatus  call s:status()
   command! -nargs=0 -bar BundleDiff    call s:diff()
   command! -nargs=? -bar BundleSnapshot call s:snapshot(<f-args>)
@@ -605,7 +604,7 @@ function! s:finish(pull)
     let s = new_frozen > 1 ? 's' : ''
     call append(3, printf('- Installed %d frozen bundle%s', new_frozen, s))
   endif
-  call append(3, '- Finishing ... ')
+  call append(3, '- Finishing ...')
   redraw
   call vundle#helptags()
   call vundle#end()
@@ -1243,47 +1242,6 @@ function! s:clean(force)
     endif
   endif
   normal! G
-endfunction
-
-function! s:upgrade()
-  let new = s:me . '.new'
-  echo 'Downloading '. s:vundle_src
-  redraw
-  try
-    if executable('curl')
-      let output = system(printf('curl -fLo %s %s', s:shellesc(new), s:vundle_src))
-      if v:shell_error
-        throw get(s:lines(output), -1, v:shell_error)
-      endif
-    elseif has('ruby')
-      call s:upgrade_using_ruby(new)
-    else
-      return s:err('curl executable or ruby support not found')
-    endif
-  catch
-    return s:err('Error upgrading vundle: '. v:exception)
-  endtry
-
-  if readfile(s:me) ==# readfile(new)
-    echo 'vundle is up-to-date'
-    silent! call delete(new)
-    return 0
-  else
-    call rename(s:me, s:me . '.old')
-    call rename(new, s:me)
-    unlet g:loaded_vundle
-    echo 'vundle is upgraded'
-    return 1
-  endif
-endfunction
-
-function! s:upgrade_using_ruby(new)
-  ruby << EOF
-  require 'open-uri'
-  File.open(VIM::evaluate('a:new'), 'w') do |f|
-    f << open(VIM::evaluate('s:vundle_src')).read
-  end
-EOF
 endfunction
 
 function! s:upgrade_specs()
