@@ -50,10 +50,10 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
      filetype plugin indent on     " required!
      "
      " Brief help
-     " :BundleList          - list configured bundles
-     " :BundleInstall(!)    - install(update) bundles
-     " :BundleSearch(!) foo - search(or refresh cache first) for foo
-     " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+     " :BundleInstall       - install bundles
+     " :BundleUpdate        - update bundles
+     " :BundleStatus        - list configured bundles
+     " :BundleClean         - remove unused bundles
      "
      " see :h vundle for more details
      " NOTE: comments after Bundle command are not allowed..
