@@ -4,8 +4,7 @@
 " HomePage: http://github.com/chilicuil/vundle
 " Readme:   http://github.com/chilicuil/vundle/blob/master/README.md
 
-"TODO 12-12-2014 18:09 >> remove #end function, load everything on #rc
-
+"TODO 12-12-2014 20:11 >> comment code
 "TODO 12-12-2014 17:33 >> add option for loading on mapping
 " % or Plug matchit => vim-matchit
 " <leader>c<space> or Plug nerdcommander => nerdcommander
@@ -14,14 +13,8 @@
 " <ctrl_map> => vim-sprunge
 " <ctrl_map> => x-modes
 " <ctrl_map> => quickbuf
-
-"TODO 12-12-2014 18:10 >> fix
-"gpg, cutils (autocreation of files)
-
-"TODO 12-12-2014 17:33 >> add option for loading on insert
-"   snipmate, neocomplcache, surround
-
 "TODO 12-12-2014 19:42 >> add python multithread version
+"TODO 12-12-2014 19:42 >> support hash bundle versions
 
 if exists('g:loaded_vundle')
   finish
@@ -31,13 +24,11 @@ let g:loaded_vundle = 1
 let s:cpo_save = &cpo
 set cpo&vim
 
-let s:vundle_src = 'https://raw.githubusercontent.com/chilicuil/vundle/master/vundle.vim'
 let s:vundle_tab = get(s:, 'vundle_tab', -1)
 let s:vundle_buf = get(s:, 'vundle_buf', -1)
 let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
 let s:nvim = exists('##JobActivity') && !s:is_win
-let s:me = resolve(expand('<sfile>:p'))
 let s:base_spec = { 'branch': 'master', 'frozen': 0 }
 let s:TYPE = {
 \   'string':  type(''),
@@ -49,6 +40,7 @@ let s:loaded = get(s:, 'loaded', {})
 let s:triggers = get(s:, 'triggers', {})
 
 function! vundle#rc(...)
+  if !executable('git') | return s:err('`git` executable not found. Vundle requires git.') | endif
   if a:0 > 0
     let s:vundle_home_org = a:1
     let home = s:path(fnamemodify(expand(a:1), ':p'))
@@ -66,14 +58,13 @@ function! vundle#rc(...)
   let s:triggers = {}
 
   call s:define_commands()
-  return 1
+  call s:read_conf()
+  call vundle#end()
+  "return 1
 endfunction
 
 function! s:define_commands()
   command! -nargs=+ -bar Bundle call s:add(<args>)
-  if !executable('git')
-    return s:err('`git` executable not found. Vundle requires git.')
-  endif
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleInstall call s:install('<bang>' == '!', [<f-args>])
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleUpdate  call s:update('<bang>' == '!', [<f-args>])
   command! -nargs=0 -bar -bang BundleClean call s:clean('<bang>' == '!')
@@ -82,21 +73,13 @@ function! s:define_commands()
   command! -nargs=? -bar BundleSnapshot call s:snapshot(<f-args>)
 endfunction
 
-function! s:to_a(v)
-  return type(a:v) == s:TYPE.list ? a:v : [a:v]
-endfunction
-
-function! s:to_s(v)
-  return type(a:v) == s:TYPE.string ? a:v : join(a:v, "\n") . "\n"
-endfunction
-
-function! s:source(from, ...)
-  for pattern in a:000
-    for vim in s:lines(globpath(a:from, pattern))
-      execute 'source' vim
-    endfor
+function! s:read_conf()
+  "this is really ugly but I don't mind, I'm the only one who will use it
+  for l:line in readfile($MYVIMRC)
+    if l:line =~ '^\s*Bundle.*' | execute l:line | endif
   endfor
-endfunction
+  command! -nargs=+ -bar Bundle
+endf
 
 function! vundle#end()
   if !exists('g:bundles')
@@ -104,8 +87,7 @@ function! vundle#end()
   endif
 
   if exists('#VundleLOD')
-    augroup VundleLOD
-      autocmd!
+    augroup VundleLOD autocmd!
     augroup END
     augroup! VundleLOD
   endif
@@ -122,7 +104,10 @@ function! vundle#end()
     if has_key(bundle, 'on')
       let s:triggers[name] = { 'map': [], 'cmd': [] }
       for cmd in s:to_a(bundle.on)
-        if cmd =~ '^<Plug>.\+'
+        if cmd =~ 'insert'
+          if !exists("l:vundle_insert_lod") | let l:vundle_insert_lod=[] | endif
+          call add(l:vundle_insert_lod,name)
+        elseif cmd =~ '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
             for [mode, map_prefix, key_prefix] in
                   \ [['i', '<C-O>', ''], ['n', '', ''], ['v', '', 'gv'], ['o', '', '']]
@@ -164,6 +149,15 @@ function! vundle#end()
     augroup END
   endfor
 
+  if exists("l:vundle_insert_lod")
+    augroup VundleInsertLOD
+    autocmd!
+    for name in l:vundle_insert_lod
+      execute "autocmd InsertEnter * call vundle#load(" . string(name) . ") | autocmd! VundleInsertLOD"
+    endfor
+    augroup END
+  endif
+
   call s:reorg_rtp()
   filetype plugin indent on
   if has('vim_starting')
@@ -171,6 +165,22 @@ function! vundle#end()
   else
     call s:reload()
   endif
+endfunction
+
+function! s:to_a(v)
+  return type(a:v) == s:TYPE.list ? a:v : [a:v]
+endfunction
+
+function! s:to_s(v)
+  return type(a:v) == s:TYPE.string ? a:v : join(a:v, "\n") . "\n"
+endfunction
+
+function! s:source(from, ...)
+  for pattern in a:000
+    for vim in s:lines(globpath(a:from, pattern))
+      execute 'source' vim
+    endfor
+  endfor
 endfunction
 
 function! s:loaded_names()
