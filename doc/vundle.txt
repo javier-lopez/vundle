@@ -50,34 +50,39 @@ in order to install vim scripts
 
    Sample `.vimrc`: >
 
-     set nocompatible               " be iMproved
-     filetype off                   " required!
-
      set rtp+=~/.vim/bundle/vundle/
      call vundle#rc()
 
-     " let Vundle manage Vundle
+     " let Vundle manage Vundle, required!
      Bundle 'chilicuil/vundle'
 
-     " My Bundles here:
-     "
-     " original repos on github
-     Bundle 'tpope/vim-fugitive'
+     " github repos
      Bundle 'Lokaltog/vim-easymotion'
-     Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+     Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
+     Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
+     Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
+     Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
+     Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
+     Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
+
      " vim-scripts repos
      Bundle 'L9'
      Bundle 'FuzzyFinder'
-     Bundle 'rails.vim'
+
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
      " git repos on your local machine (ie. when working on your own plugin)
      Bundle 'file:///Users/chilicuil/path/to/plugin'
      " ...
 
-     filetype plugin indent on     " required!
-     " or
-     " filetype plugin on          " to not use the indentation settings set by plugins
+     " Brief help
+     " :BundleInstall       - install bundles
+     " :BundleUpdate        - update bundles
+     " :BundleStatus        - list configured bundles
+     " :BundleClean         - remove unused bundles
+     "
+     " see :h vundle for more details
+     " NOTE: comments after Bundle command are not allowed..
 
 3) Install configured bundles:
 

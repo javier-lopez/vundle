@@ -7,12 +7,6 @@
 "TODO 12-12-2014 20:11 >> comment code
 "TODO 12-12-2014 17:33 >> add option for loading on mapping
 " % or Plug matchit => vim-matchit
-" <leader>c<space> or Plug nerdcommander => nerdcommander
-" <f11> or Plug nextCS => nextCS
-" <ctrl_map> => ctrlp
-" <ctrl_map> => vim-sprunge
-" <ctrl_map> => x-modes
-" <ctrl_map> => quickbuf
 "TODO 12-12-2014 19:42 >> add python multithread version
 "TODO 12-12-2014 19:42 >> support hash bundle versions
 

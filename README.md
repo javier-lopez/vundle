@@ -21,34 +21,31 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
      Sample `.vimrc`:
 
      ```vim
-     set nocompatible               " be iMproved
-     filetype off                   " required!
-
      set rtp+=~/.vim/bundle/vundle/
      call vundle#rc()
 
-     " let Vundle manage Vundle
-     " required!
+     " let Vundle manage Vundle, required!
      Bundle 'chilicuil/vundle'
 
-     " My Bundles here:
-     "
-     " original repos on github
-     Bundle 'tpope/vim-fugitive'
+     " github repos
      Bundle 'Lokaltog/vim-easymotion'
-     Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-     Bundle 'tpope/vim-rails.git'
+     Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
+     Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
+     Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
+     Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
+     Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
+     Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
+
      " vim-scripts repos
      Bundle 'L9'
      Bundle 'FuzzyFinder'
+
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
      " git repos on your local machine (ie. when working on your own plugin)
      Bundle 'file:///Users/chilicuil/path/to/plugin'
      " ...
 
-     filetype plugin indent on     " required!
-     "
      " Brief help
      " :BundleInstall       - install bundles
      " :BundleUpdate        - update bundles
