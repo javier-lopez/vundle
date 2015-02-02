@@ -69,6 +69,7 @@ endfunction
 
 function! s:read_conf()
   "this is really ugly but I don't mind, I'm the only one who will use it
+  if $MYVIMRC == "" | let $MYVIMRC=expand("~/.vimrc") | endif
   for l:line in readfile($MYVIMRC)
     if l:line =~ '^\s*Bundle.*' | execute l:line | endif
   endfor
@@ -408,6 +409,7 @@ function! s:infer_properties(name, repo)
 endfunction
 
 function! s:install(force, names)
+  call s:read_conf()
   call s:update_impl(0, a:force, a:names)
 endfunction
 
@@ -1472,3 +1474,4 @@ endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
+
