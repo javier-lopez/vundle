@@ -34,6 +34,8 @@ let s:loaded = get(s:, 'loaded', {})
 let s:triggers = get(s:, 'triggers', {})
 
 function! vundle#rc(...)
+  if exists('s:vundle_rc_init') | return | endif
+  let s:vundle_rc_init= 1
   if !executable('git') | return s:err('`git` executable not found. Vundle requires git.') | endif
   if a:0 > 0
     let s:vundle_home_org = a:1
@@ -409,7 +411,7 @@ function! s:infer_properties(name, repo)
 endfunction
 
 function! s:install(force, names)
-  call s:read_conf()
+  call vundle#rc()
   call s:update_impl(0, a:force, a:names)
 endfunction
 
