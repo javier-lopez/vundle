@@ -2,7 +2,6 @@
 "           between the original vundle and plug
 " Author:   gmarik & junegunn
 " HomePage: http://github.com/chilicuil/vundle
-" Readme:   http://github.com/chilicuil/vundle/blob/master/README.md
 
 "TODO 12-12-2014 20:11 >> comment code
 "TODO 12-12-2014 17:33 >> add option for loading on mapping
@@ -32,10 +31,11 @@ let s:TYPE = {
 \ }
 let s:loaded = get(s:, 'loaded', {})
 let s:triggers = get(s:, 'triggers', {})
+let s:vundle_interactive = 1
 
 function! vundle#rc(...)
   if exists('s:vundle_rc_init') | return | endif
-  let s:vundle_rc_init= 1
+  let s:vundle_rc_init = 1
   if !executable('git') | return s:err('`git` executable not found. Vundle requires git.') | endif
   if a:0 > 0
     let s:vundle_home_org = a:1
@@ -71,7 +71,10 @@ endfunction
 
 function! s:read_conf()
   "this is really ugly but I don't mind, I'm the only one who will use it
-  if $MYVIMRC == "" | let $MYVIMRC=expand("~/.vimrc") | endif
+  if $MYVIMRC == ""
+      let $MYVIMRC=expand("~/.vimrc")
+      unlet s:vundle_interactive
+  endif
   for l:line in readfile($MYVIMRC)
     if l:line =~ '^\s*Bundle.*' | execute l:line | endif
   endfor
@@ -687,7 +690,7 @@ function! s:update_impl(pull, force, args) abort
   call append(0, ['', ''])
   normal! 2G
 
-  if has('ruby') && s:update.threads > 1
+  if has('ruby') && s:update.threads > 1 && exists('s:vundle_interactive')
     try
       let imd = &imd
       if s:mac_gui
@@ -876,7 +879,7 @@ while 1 " Without TCO, Vim stack is bound to explode
   let pull = s:update.pull
   let new  = !isdirectory(spec.dir)
 
-  call s:log(new ? '+' : '*', name, pull ? 'Updating ...' : 'Installing ...')
+  if exists('s:vundle_interactive') | call s:log(new ? '+' : '*', name, pull ? 'Updating ...' : 'Installing ...') | endif
   redraw
 
   if !new
