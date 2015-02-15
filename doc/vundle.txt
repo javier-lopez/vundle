@@ -1,4 +1,4 @@
-*vundle.txt* Vundle the plug-in manager for Vim.     *vundle*
+*vundle.txt* Vundle, a plug-in manager for Vim.     *vundle*
 
 CONTENTS ~
                                                    *vundle-contents*
@@ -20,8 +20,8 @@ CONTENTS ~
 
 ABOUT                                              *vundle-about*
 
-Vundle is a short cut for Vim bundle and is the Vim plug-in manager. This
-revision is a mix between the original Vundle and Plug (for lazy loading).
+Vundle is a short cut for Vim bundle and is a plug-in manager. This
+revision mix the original Vundle and Plug (for lazy loading).
 
 2. WHY VUNDLE ~
                                                    *vundle-why-vundle*
@@ -59,15 +59,15 @@ in order to install vim scripts
      " github repos
      Bundle 'Lokaltog/vim-easymotion'
      Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
+     Bundle 'paradigm/TextObjectify'  , { 'on': 'delay' }
      Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
-     Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
      Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
+     Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
      Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
      Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
 
      " vim-scripts repos
-     Bundle 'L9'
-     Bundle 'FuzzyFinder'
+     Bundle 'surround.vim' , { 'on': ['insert', 'delay', ] }
 
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
@@ -172,7 +172,6 @@ KEY | DESCRIPTION
  I  |  same as i, but runs :BundleInstall! to update bundle
  D  |  delete selected bundle( be careful not to remove local modifications)
  c  |  run :BundleClean
- s  |  run :BundleSearch
  R  |  fetch fresh script list from server
 .
 

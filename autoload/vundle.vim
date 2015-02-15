@@ -4,8 +4,6 @@
 " HomePage: http://github.com/chilicuil/vundle
 
 "TODO 12-12-2014 20:11 >> comment code
-"TODO 12-12-2014 17:33 >> add option for loading on mapping
-" % or Plug matchit => vim-matchit
 "TODO 12-12-2014 19:42 >> add python multithread version
 "TODO 12-12-2014 19:42 >> support hash bundle versions
 
@@ -104,9 +102,12 @@ function! vundle#end()
     if has_key(bundle, 'on')
       let s:triggers[name] = { 'map': [], 'cmd': [] }
       for cmd in s:to_a(bundle.on)
-        if cmd =~ 'insert'
+        if cmd =~ '^insert'
           if !exists("l:vundle_insert_lod") | let l:vundle_insert_lod=[] | endif
           call add(l:vundle_insert_lod,name)
+        elseif cmd =~ '^delay'
+          if !exists("l:vundle_delay_lod") | let l:vundle_delay_lod=[] | endif
+          call add(l:vundle_delay_lod,name)
         elseif cmd =~ '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
             for [mode, map_prefix, key_prefix] in
@@ -154,6 +155,23 @@ function! vundle#end()
     autocmd!
     for name in l:vundle_insert_lod
       execute "autocmd InsertEnter * call vundle#load(" . string(name) . ") | autocmd! VundleInsertLOD"
+    endfor
+    augroup END
+  endif
+
+  if exists("l:vundle_delay_lod")
+    augroup VundleDelayLOD
+    autocmd!
+    for name in l:vundle_delay_lod
+      for cmd in s:to_a(g:bundles[name].on)
+        if cmd =~ "^delay"
+          let delay=get(split(cmd, " "), 1, "10")
+          if delay !~ '[0-9]' | let delay=10 | endif
+          break
+        endif
+      endfor
+      "echo string(name) . " " . delay
+      execute "autocmd CursorHold,CursorMoved * call vundle#loadafter(" . string(name) . ", " . delay . ")"
     endfor
     augroup END
   endif
@@ -301,6 +319,16 @@ function! vundle#load(...)
   endfor
   doautocmd BufRead
   return 1
+endfunction
+
+function! vundle#loadafter(name, delay)
+  if get(s:loaded, a:name, 0) | return 0 | endif
+  if !exists('g:vundle_delay') | let g:vundle_delay=1 | endif
+  if g:vundle_delay >= a:delay
+    call s:lod([a:name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+  else
+    let g:vundle_delay += 1
+  endif
 endfunction
 
 function! s:remove_triggers(name)

@@ -30,15 +30,15 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
      " github repos
      Bundle 'Lokaltog/vim-easymotion'
      Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
+     Bundle 'paradigm/TextObjectify'  , { 'on': 'delay' }
+     Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
      Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
      Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
-     Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
      Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
      Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
 
      " vim-scripts repos
-     Bundle 'L9'
-     Bundle 'FuzzyFinder'
+     Bundle 'surround.vim' , { 'on': ['insert', 'delay', ] }
 
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
