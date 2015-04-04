@@ -64,22 +64,13 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
 
      Installing requires Git and triggers [Git clone](http://gitref.org/creating/#clone) for each configured repo to `~/.vim/bundle/`.
 
-## Why Vundle
+## Differences
 
-Vundle allows to:
+- Use "Bundle" to define bundles/plugins
+- Remove the need to end() vundle definitions, go back to rc() init method
+- Define 'insert' (on Insert mode) and 'delay' (on time, 10 sec by default) triggers
+- Fix case when it's initialized hands-free
 
-- keep track and configure your scripts right in `.vimrc`
-- install configured scripts (aka bundle)
-- update configured scripts
-- clean unused scripts up
-- regenerates helptag automatically
+## Why
 
-## Docs
-
-see [`:h vundle`](vundle/blob/master/doc/vundle.txt#L1) vimdoc for more details.
-
-## Inspiration and ideas from
-
-* [pathogen](https://github.com/tpope/vim-pathogen)
-* [bundler](http://bundler.io/)
-* [Scott Bronson](http://github.com/bronson)
+There are glorified vundle plugins who do it better but break compatibility, I wanted a drop-in replacement who had better features (specially lazy loading) but don't force me to edit my vimrc file (except for replacing vundle with the new thing). This revision currently comply with all my requirements.
