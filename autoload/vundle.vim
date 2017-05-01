@@ -16,18 +16,19 @@ set cpo&vim
 
 let s:vundle_tab = get(s:, 'vundle_tab', -1)
 let s:vundle_buf = get(s:, 'vundle_buf', -1)
-let s:mac_gui = has('gui_macvim') && has('gui_running')
-let s:is_win = has('win32') || has('win64')
-let s:nvim = has('nvim') && exists('*jobwait') && !s:is_win
-let s:base_spec = { 'branch': 'master', 'frozen': 0 }
-let s:TYPE = {
+let s:is_unix    = has('unix')
+let s:is_win     = has('win32') || has('win64')
+let s:mac_gui    = has('gui_macvim') && has('gui_running')
+let s:nvim       = has('nvim') && exists('*jobwait') && !s:is_win
+let s:base_spec  = { 'branch': 'master', 'frozen': 0 }
+let s:loaded     = get(s:, 'loaded', {})
+let s:triggers   = get(s:, 'triggers', {})
+let s:TYPE       = {
 \   'string':  type(''),
 \   'list':    type([]),
 \   'dict':    type({}),
 \   'funcref': type(function('call'))
 \ }
-let s:loaded = get(s:, 'loaded', {})
-let s:triggers = get(s:, 'triggers', {})
 let s:vundle_interactive = 1
 
 function! vundle#rc(...)
@@ -45,13 +46,13 @@ function! vundle#rc(...)
     return s:err('Unable to determine vundle home. Try calling vundle#rc() with a path argument.')
   endif
 
-  let g:vundle_home = home
-  let g:bundles = {}
+  let g:vundle_home   = home
+  let g:bundles       = {}
   let g:bundles_order = []
-  let s:triggers = {}
+  let s:triggers      = {}
 
   call s:define_commands()
-  call s:read_conf()
+  call s:load_vimrc()
   call vundle#end()
   "return 1
 endfunction
@@ -66,13 +67,30 @@ function! s:define_commands()
   command! -nargs=? -bar BundleSnapshot call s:snapshot(<f-args>)
 endfunction
 
-function! s:read_conf()
-  "this is really ugly but I don't mind, I'm the only one who will use it
+function! s:load_vimrc()
+  "this function deprecates vundle#end() into the user vimrc
+
+  "vim was called specifying a custom vimrc file
   if $MYVIMRC == ""
-      let $MYVIMRC=expand("~/.vimrc")
+      if s:is_unix
+          let l:vim_argv = split(system('tr "\0" " " </proc/' . getpid() . '/cmdline'))
+          for l:arg in l:vim_argv
+              if exists("l:user_vimrc_found")
+                  let l:user_vimrc = l:arg
+                  break
+              endif
+              if (l:arg == '-Nu' || l:arg == '-NU' || l:arg == '-u' || l:arg == '-U')
+                  let l:user_vimrc_found = 1
+              endif
+          endfor
+          if exists("l:user_vimrc") | let $MYVIMRC = l:user_vimrc | endif
+      endif
+      if $MYVIMRC == "" | let $MYVIMRC=expand("~/.vimrc") | endif
       unlet s:vundle_interactive
   endif
+
   for l:line in readfile($MYVIMRC)
+      "read everything but commented bundle lines
     if l:line =~ '^\s*Bundle.*' | execute l:line | endif
   endfor
   command! -nargs=+ -bar Bundle
