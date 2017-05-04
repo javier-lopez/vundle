@@ -62,8 +62,11 @@ function! s:define_commands()
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleInstall call s:install('<bang>' == '!', [<f-args>])
   command! -nargs=* -bar -bang -complete=customlist,s:names BundleUpdate  call s:update('<bang>' == '!', [<f-args>])
   command! -nargs=0 -bar -bang BundleClean call s:clean('<bang>' == '!')
-  command! -nargs=0 -bar BundleStatus  call s:status()
-  command! -nargs=0 -bar BundleDiff    call s:diff()
+  command! Bundleclean   BundleClean
+  command! -nargs=0 -bar BundleStatus   call s:status()
+  command! BundleList    BundleStatus
+  command! Bundlelist    BundleStatus
+  command! -nargs=0 -bar BundleDiff     call s:diff()
   command! -nargs=? -bar BundleSnapshot call s:snapshot(<f-args>)
 endfunction
 
