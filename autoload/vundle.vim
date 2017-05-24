@@ -1,7 +1,7 @@
 " Vundle    Is a simple plugin manager for Vim, this is a merge revision
 "           between the original vundle and plug
 " Author:   gmarik & junegunn
-" HomePage: http://github.com/chilicuil/vundle
+" HomePage: http://github.com/javier-lopez/vundle
 
 "TODO 12-12-2014 20:11 >> comment code
 "TODO 12-12-2014 19:42 >> support hash bundle versions

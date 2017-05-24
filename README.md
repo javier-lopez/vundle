@@ -1,8 +1,8 @@
 ## About
 
-[Vundle](https://github.com/chilicuil/vundle) is short for _Vim bundle_ and is a [Vim](http://vim.org) plugin manager.
+[Vundle](https://github.com/javier-lopez/vundle) is short for _Vim bundle_ and is a [Vim](http://vim.org) plugin manager.
 
-This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) & [Plug](https://github.com/junegunn/vim-plug).
+This is a custom version, merging [Vundle](https://github.com/javier-lopez/vundle) & [Plug](https://github.com/junegunn/vim-plug).
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif" alt="vundle-installer"/>
@@ -13,7 +13,7 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
 1. Setup:
 
      ```
-     $ git clone https://github.com/chilicuil/vundle.git ~/.vim/bundle/vundle
+     $ git clone https://github.com/javier-lopez/vundle.git ~/.vim/bundle/vundle
      ```
 
 2. Configuration:
@@ -25,17 +25,17 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
      call vundle#rc()
 
      " let Vundle manage Vundle, required!
-     Bundle 'chilicuil/vundle'
+     Bundle 'javier-lopez/vundle'
 
      " github repos
      Bundle 'Lokaltog/vim-easymotion'
-     Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
-     Bundle 'paradigm/TextObjectify'  , { 'on': 'delay' }
-     Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
-     Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
-     Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
-     Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
-     Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
+     Bundle 'msanders/snipmate.vim'     , { 'on': 'insert' }
+     Bundle 'paradigm/TextObjectify'    , { 'on': 'delay' }
+     Bundle 'scrooloose/nerdtree'       , { 'on': 'NERDTreeToggle' }
+     Bundle 'javier-lopez/TaskList.vim' , { 'on': '<Plug>TaskList' }
+     Bundle 'kien/ctrlp.vim'            , { 'on': ['CtrlP', 'CtrlPBuffer'] }
+     Bundle 'javier-lopez/vim-markdown' , { 'for': 'mkd' }
+     Bundle 'rstacruz/sparkup'          , { 'rtp': 'vim/'}
 
      " vim-scripts repos
      Bundle 'surround.vim' , { 'on': ['insert', 'delay', ] }
@@ -43,7 +43,7 @@ This is a custom version, merging [Vundle](https://github.com/chilicuil/vundle) 
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
      " git repos on your local machine (ie. when working on your own plugin)
-     Bundle 'file:///Users/chilicuil/path/to/plugin'
+     Bundle 'file:///Users/admin/path/to/plugin'
      " ...
 
      " Brief help

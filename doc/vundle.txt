@@ -44,7 +44,7 @@ in order to install vim scripts
                                                     *vundle-quickstart*
 1) Setup Vundle: >
 
-    git clone https://github.com/chilicuil/vundle.git ~/.vim/bundle/vundle
+    git clone https://github.com/javier-lopez/vundle.git ~/.vim/bundle/vundle
 
 2) Configure bundles:
 
@@ -54,16 +54,16 @@ in order to install vim scripts
      call vundle#rc()
 
      " let Vundle manage Vundle, required!
-     Bundle 'chilicuil/vundle'
+     Bundle 'javier-lopez/vundle'
 
      " github repos
      Bundle 'Lokaltog/vim-easymotion'
      Bundle 'msanders/snipmate.vim'   , { 'on': 'insert' }
      Bundle 'paradigm/TextObjectify'  , { 'on': 'delay' }
-     Bundle 'chilicuil/TaskList.vim'  , { 'on': '<Plug>TaskList' }
+     Bundle 'javier-lopez/TaskList.vim'  , { 'on': '<Plug>TaskList' }
      Bundle 'scrooloose/nerdtree'     , { 'on': 'NERDTreeToggle' }
      Bundle 'kien/ctrlp.vim'          , { 'on': ['CtrlP', 'CtrlPBuffer'] }
-     Bundle 'chilicuil/vim-markdown'  , { 'for': 'mkd' }
+     Bundle 'javier-lopez/vim-markdown'  , { 'for': 'mkd' }
      Bundle 'rstacruz/sparkup'        , { 'rtp': 'vim/'}
 
      " vim-scripts repos
@@ -72,7 +72,7 @@ in order to install vim scripts
      " non github repos
      Bundle 'git://git.wincent.com/command-t.git'
      " git repos on your local machine (ie. when working on your own plugin)
-     Bundle 'file:///Users/chilicuil/path/to/plugin'
+     Bundle 'file:///Users/javier-lopez/path/to/plugin'
      " ...
 
      " Brief help
