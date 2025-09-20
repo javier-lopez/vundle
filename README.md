@@ -37,6 +37,8 @@ This is a custom version, merging [Vundle](https://github.com/javier-lopez/vundl
      Bundle 'javier-lopez/vim-markdown' , { 'for': 'mkd' }
      Bundle 'rstacruz/sparkup'          , { 'rtp': 'vim/'}
 
+     Bundle 'junegunn/fzf', 'develop' " use the develop branch instead of master
+
      " vim-scripts repos
      Bundle 'surround.vim' , { 'on': ['insert', 'delay', ] }
 
